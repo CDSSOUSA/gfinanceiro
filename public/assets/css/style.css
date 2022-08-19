@@ -1,0 +1,24 @@
+.show576 {
+    display: table-cell;;
+}
+
+.show992 {
+    display: none;
+}
+
+@media (min-width: 576px) {
+    .show576 {
+        display: none;
+    }
+    
+}
+
+@media (min-width: 576px) {
+    .show992 {
+        display: table-cell;
+    }
+}
+
+.font-size-10{
+    font-size: 10px;
+}
