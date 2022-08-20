@@ -23,7 +23,7 @@
     
     <link rel="stylesheet" href="<?=base_url();?>/assets/css/jquery-ui.css">
     
-    <link rel="stylesheet" href="<?=base_url();?>/assets/plugins/toastr/toastr.min.css">
+    <link rel="stylesheet" href="<?=base_url();?>/assets/plugins/toastr/toastr.css">
     <link rel="stylesheet" href="<?=base_url();?>/assets/css/style.css">
     
 </head>

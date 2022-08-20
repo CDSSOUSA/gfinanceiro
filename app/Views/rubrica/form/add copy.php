@@ -44,9 +44,7 @@
 
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Salvar</button>
-                        <button type="button" class="btn btn-success toastsDefaultSuccess" onclick="chamarToastSucess()">
-                            Launch Success Toast
-                        </button>
+                       
                     </div>
                     <?php form_close(); ?>
                 </div>

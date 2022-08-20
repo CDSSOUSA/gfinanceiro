@@ -19,11 +19,9 @@ $rubrica = new Rubrica();
             }
             session()->remove('success');
             if ($msgs['alert']) : ?>
-                <div class="alert alert-<?= $msgs['alert'] ?> alert-dismissible alert-close">
-                    <button type="button" class="close" data-bs-dismiss="alert" aria-hidden="true">×</button>
-                    <h5><?= $msgs['status']; ?></h5>
-                    <?= $msgs['message']; ?>
-                </div>
+                 <h5 id="message" style="display:none"><?= $msgs['message']; ?></h5>
+                <h5 id="alert" style="display:none"><?= $msgs['alert']; ?></h5>
+                <h5 id="status" style="display:none"><?= $msgs['status']; ?></h5>
             <?php endif; ?>
             <div class="card card-primary">
                 <div class="card-header">

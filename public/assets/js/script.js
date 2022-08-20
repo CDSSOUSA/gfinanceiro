@@ -1,41 +1,5 @@
 
-var statusa = document.querySelector('#status').innerText;
-
-if (statusa === ' Opps!') {
-    $(window).on("load", function(){
-        chamarToastError();
-     });
-} else{
-    $(window).on("load", function(){
-        chamarToastSucess();
-     });
-}
-
 var spanConta = document.querySelector('#contaNumero');
-
-function chamarToastSucess() {
-
-    $(document).Toasts('create', {
-      icon: 'fas fa-exclamation-triangle',
-      class: 'bg-success m-1',
-      autohide: true,
-      delay: 5000,
-      title: 'Parabéns!',
-      body: 'Operação realizada com sucesso.'
-    });
-  }
-function chamarToastError() {
-
-    $(document).Toasts('create', {
-      icon: 'fas fa-exclamation-triangle',
-      class: 'bg-danger m-1',
-      autohide: true,
-      delay: 5000,
-      title: 'Opss!',
-      body: 'Erro(s) no preenchimento.'
-    });
-  }
-
 
 function showModal() {
 
@@ -45,8 +9,31 @@ function showModal() {
         var numeroConta = $(this).data('numeroconta');
 
         var conta = document.querySelector('#conta').value = idConta;
-        spanConta.textContent = numeroConta;
+        spanConta.innerText = numeroConta;
 
     });
 }
+var msg = document.querySelector('#message').innerText;
+var alerts = document.querySelector('#alert').innerText;
+var title = document.querySelector('#status').innerText;
+
+$(window).on("load", function () {
+    loadToast(title,msg,alerts)   
+});
+
+function loadToast(title,body,bg) {
+
+    $(document).Toasts('create', {
+        icon: 'fas fa-exclamation-triangle',
+        class: `bg-${bg} m-1 width-500`,
+        autohide: true,
+        delay: 3000,
+        title: title,        
+        body: body,
+        close:false,
+        autoremove:true
+    });
+}
+
+
 

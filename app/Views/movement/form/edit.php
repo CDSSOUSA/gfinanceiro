@@ -14,11 +14,9 @@
             }
             session()->remove('success');
             if ($msgs['alert']) : ?>
-                <div class="alert alert-<?= $msgs['alert'] ?> alert-dismissible alert-close">
-                    <button type="button" class="close" data-bs-dismiss="alert" aria-hidden="true">×</button>
-                    <h5><?= $msgs['status']; ?></h5>
-                    <?= $msgs['message']; ?>
-                </div>
+                <h5 id="message" style="display:none"><?= $msgs['message']; ?></h5>
+                <h5 id="alert" style="display:none"><?= $msgs['alert']; ?></h5>
+                <h5 id="status" style="display:none"><?= $msgs['status']; ?></h5>
             <?php endif; ?>
             <!-- general form elements -->
             <div class="card card-primary">
@@ -65,7 +63,7 @@
                                 <option value="<?= $movement['id_rubric']; ?>" <?= set_select('id_rubric', $movement['id_rubric'], false) ?>><?= mb_strtoupper($rubric->find($movement['id_rubric'])['description']); ?></option>
                                 <?php
                                 foreach ($rubrics as $item) :
-                                   
+
                                     if ($item['id'] !== $movement['id_rubric']) : ?>
                                         <option value="<?= $item['id']; ?>" <?= set_select('id_rubric', $item['id'], false) ?>><?= mb_strtoupper($item['description']); ?></option>
                                     <?php endif ?>
@@ -101,7 +99,7 @@
                             <option value="<?= ($movement['origem']); ?>" <?= set_select('origem', ($movement['origem']), false) ?>><?= $account->find($movement['origem'])['bank']; ?></option>
                             <?php
 
-                            foreach ($bank as $nameBank) :                              
+                            foreach ($bank as $nameBank) :
                                 if ((int)$movement['origem'] !== (int)$nameBank['id']) : ?>
                                     <option value="<?= ($nameBank['id']); ?>" <?= set_select('origem', ($nameBank['id']), false) ?>><?= mb_strtoupper($nameBank['bank']); ?></option>
                                 <?php endif; ?>
@@ -115,9 +113,7 @@
 
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Salvar</button>
-                    <button type="button" class="btn btn-success toastsDefaultSuccess" onclick="chamarToastSucess()">
-                        Launch Success Toast
-                    </button>
+
                 </div>
                 <?php form_close(); ?>
             </div>

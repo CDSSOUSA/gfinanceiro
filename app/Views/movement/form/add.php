@@ -1,7 +1,7 @@
 <?= $this->extend('layouts/default'); ?>
 <?= $this->section('content');
 //dd($erro);
-?> 
+?>
 
 <div class="container-fluid">
     <div class="row">
@@ -15,11 +15,12 @@
             }
             session()->remove('success');
             if ($msgs['alert']) : ?>
-                   <h5 id="status" style="display:none"><?= $msgs['status']; ?></h5>
-                   
-                
+                <h5 id="message" style="display:none"><?= $msgs['message']; ?></h5>
+                <h5 id="alert" style="display:none"><?= $msgs['alert']; ?></h5>
+                <h5 id="status" style="display:none"><?= $msgs['status']; ?></h5>
+
             <?php
-         endif; ?>
+            endif; ?>
             <!-- general form elements -->
             <div class="card card-primary">
                 <div class="card-header">
@@ -27,7 +28,7 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <?php echo form_open('/movement/create', ['class' => '', 'id'=>'form']) ?>
+                <?php echo form_open('/movement/create', ['class' => '', 'id' => 'form']) ?>
                 <?= csrf_field() ?>
                 <div class="card-body col-md-6">
                     <div class="form-group">
@@ -43,32 +44,32 @@
                         </div>
                         <br>
                         <span class="badge badge-danger"><?= array_key_exists("type_mov", $erro) === true ? $erro['type_mov'] : ''; ?></span>
-                    </div>                   
+                    </div>
                     <div class="form-group">
                         <label>Rubrica :: </label>
-                    <div class="input-group">
-                        <select class="form-control" name="id_rubric">
-                            <option value="">Selecione ...</option>
-                            <?php
-                            foreach ($rubrics as $item) : ?>
-                                <option value="<?= $item['id']; ?>" <?= set_select('id_rubric', $item['id'], false) ?>><?= mb_strtoupper($item['description']); ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <?=anchor('/rubrica/add', '...',['class'=>'btn btn btn-outline-secondary']);?>
-                    </div>
-                       
-                       <span class="badge badge-danger"><?= array_key_exists("id_rubric", $erro) === true ? $erro['id_rubric'] : ''; 
-                                                                                        ?></span>
+                        <div class="input-group">
+                            <select class="form-control" name="id_rubric">
+                                <option value="">Selecione ...</option>
+                                <?php
+                                foreach ($rubrics as $item) : ?>
+                                    <option value="<?= $item['id']; ?>" <?= set_select('id_rubric', $item['id'], false) ?>><?= mb_strtoupper($item['description']); ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <?= anchor('/rubrica/add', '...', ['class' => 'btn btn btn-outline-secondary']); ?>
+                        </div>
+
+                        <span class="badge badge-danger"><?= array_key_exists("id_rubric", $erro) === true ? $erro['id_rubric'] : '';
+                                                            ?></span>
                     </div>
                     <div class="form-group">
                         <label>Data :: </label>
                         <div class="input-group">
-                            <input type="text" id="datepicker" name="date_mov" class="form-control date"  value="<?=old('date_mov');?>" >
+                            <input type="text" id="datepicker" name="date_mov" class="form-control date" value="<?= old('date_mov'); ?>">
                             <div class="input-group-append">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
-                        
+
                         <span class="badge badge-danger"><?= array_key_exists("date_mov", $erro) === true ? $erro['date_mov'] : ''; ?></span>
                     </div>
 
@@ -81,20 +82,20 @@
                     <div class="form-group">
                         <label for="exampleInputEmail1">Origem :: </label>
                         <select class="form-control" name="origem">
-                                <option value="">Selecione ...</option>
-                                <?php
-                                foreach ($bank as $nameBank) : ?>
-                                    <option value="<?= ($nameBank['id']); ?>" <?= set_select('origem', ($nameBank['id']), false) ?>><?= ($nameBank['bank']); ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <span class="badge badge-danger"><?= array_key_exists("origem", $erro) === true ? $erro['origem'] : ''; ?></span>
+                            <option value="">Selecione ...</option>
+                            <?php
+                            foreach ($bank as $nameBank) : ?>
+                                <option value="<?= ($nameBank['id']); ?>" <?= set_select('origem', ($nameBank['id']), false) ?>><?= ($nameBank['bank']); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <span class="badge badge-danger"><?= array_key_exists("origem", $erro) === true ? $erro['origem'] : ''; ?></span>
                     </div>
                     <div class="form-group">
-                            <label for="exampleInputEmail1">Observação :: </label>
-                            <input type="text" name="observation" class="form-control" id="exampleInputEmail1" placeholder="Ref.: " value="<?= old('observation') ?>">
+                        <label for="exampleInputEmail1">Observação :: </label>
+                        <input type="text" name="observation" class="form-control" id="exampleInputEmail1" placeholder="Ref.: " value="<?= old('observation') ?>">
 
-                            <span class="badge badge-danger"><?= array_key_exists("observation", $erro) === true ? $erro['observation'] : ''; ?></span>
-                        </div>
+                        <span class="badge badge-danger"><?= array_key_exists("observation", $erro) === true ? $erro['observation'] : ''; ?></span>
+                    </div>
 
                     <?= form_hidden('status', 'A'); ?>
                 </div>
@@ -102,9 +103,7 @@
 
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Salvar</button>
-                    <button type="button" class="btn btn-success toastsDefaultSuccess" onclick="chamarToastSucess()">
-                        Launch Success Toast
-                    </button>
+
                 </div>
                 <?php form_close(); ?>
             </div>
@@ -115,6 +114,5 @@
 
     </div>
 </div>
-
 
 <?= $this->endSection(); ?>

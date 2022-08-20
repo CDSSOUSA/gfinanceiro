@@ -23,11 +23,9 @@ $day = $uri->getSegment(7);
             }
             session()->remove('success');
             if ($msgs['alert']) : ?>
-                <div class="alert alert-<?= $msgs['alert'] ?> alert-dismissible alert-close">
-                    <button type="button" class="close" data-bs-dismiss="alert" aria-hidden="true">×</button>
-                    <h5><?= $msgs['status']; ?></h5>
-                    <?= $msgs['message']; ?>
-                </div>
+                <h5 id="message" style="display:none"><?= $msgs['message']; ?></h5>
+                <h5 id="alert" style="display:none"><?= $msgs['alert']; ?></h5>
+                <h5 id="status" style="display:none"><?= $msgs['status']; ?></h5>
             <?php endif; ?>
             <div class="card card-primary">
                 <div class="card-header">
@@ -77,27 +75,26 @@ $day = $uri->getSegment(7);
 
                     <div class="font-size-10">
 
-                        <?php   
-                      $dayOut = defineDayEnd($month,$year);
+                        <?php
+                        $dayOut = defineDayEnd($month, $year);
 
-                      $m = 1;
-                      if ($year == getenv('YEAR_START') && $month == getenv('MONTH_START')) {
-                          $m = 30;
-                      } 
+                        $m = 1;
+                        if ($year == getenv('YEAR_START') && $month == getenv('MONTH_START')) {
+                            $m = 30;
+                        }
 
                         for ($days = $m; $days <= $dayOut; $days++) {
                             $buttonStyle = 'btn btn-dark';
-                            if (session('date') . '/' . $day === convertToMonthExtens($month) . '/' . $year .'/' . $days) :
+                            if (session('date') . '/' . $day === convertToMonthExtens($month) . '/' . $year . '/' . $days) :
                                 $buttonStyle = 'btn btn-success';
                             endif;
-                            echo anchor('/movement/resume/' . $month  . '/' . $year.'/'.$days, '<span>' . ($days) . '</span>', ['class' => $buttonStyle . ' font-size-12']);
+                            echo anchor('/movement/resume/' . $month  . '/' . $year . '/' . $days, '<span>' . ($days) . '</span>', ['class' => $buttonStyle . ' font-size-12']);
                             if ($days >= date('d') && $month >= date('m') && $year >= date('Y')) {
                                 break;
                             }
-
                         } ?>
 
-                     
+
                     </div>
                 </div>
                 <div class="card-body p-2 text-center">
@@ -169,7 +166,7 @@ $day = $uri->getSegment(7);
 
                                 </tr>
                             <?php endif;
-                            session()->remove('date'); 
+                            session()->remove('date');
                             ?>
                         </tfoot>
                     </table>

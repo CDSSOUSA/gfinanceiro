@@ -5,7 +5,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-        <?php
+            <?php
             if (session('success')) {
                 $msgs['message'] = 'Operação realizada com sucesso!';
                 $msgs['alert'] = 'success';
@@ -13,11 +13,14 @@
             }
             session()->remove('success');
             if ($msgs['alert']) : ?>
-                 <h5 id="status" style="display:none"><?= $msgs['status']; ?></h5>
+                <h5 id="message" style="display:none"><?= $msgs['message']; ?></h5>
+                <h5 id="alert" style="display:none"><?= $msgs['alert']; ?></h5>
+                <h5 id="status" style="display:none"><?= $msgs['status']; ?></h5>
             <?php endif; ?>
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">:: Todas as rubrica <?php echo nbsp(4); echo anchor('/rubrica/add', '<i class="nav-icon fas fa-file"></i>'.nbsp(3).'Nova conta', ['class'=>'btn btn-dark text-right']);?></h3>
+                    <h3 class="card-title">:: Todas as rubrica <?php echo nbsp(4);
+                                                                echo anchor('/rubrica/add', '<i class="nav-icon fas fa-file"></i>' . nbsp(3) . 'Nova conta', ['class' => 'btn btn-dark text-right']); ?></h3>
                 </div>
 
                 <div class="card-body p-0">
@@ -41,10 +44,10 @@
                                     <td><?= convertStatus($item['status']); ?></td>
                                     <td class="show992">
                                         <div class="btn-group">
-                                            
-                                            <?=anchor('/rubrica/edit/'.$item['id'],'<i class="nav-icon fas fa-pen"></i>'.nbsp(3).'Editar',['class'=>'btn btn-dark']);?>
-                                            
-                                            <a class="link-modal btn btn-dark" href="#" data-bs-toggle="modal" data-numeroconta ="<?=$item['description'];?>" data-idconta ="<?=$item['id'];?>" data-bs-target="#modal-danger" onclick="showModal()"><i class="nav-icon fas fa-trash"></i><?= nbsp(3); ?>Excluir</a>
+
+                                            <?= anchor('/rubrica/edit/' . $item['id'], '<i class="nav-icon fas fa-pen"></i>' . nbsp(3) . 'Editar', ['class' => 'btn btn-dark']); ?>
+
+                                            <a class="link-modal btn btn-dark" href="#" data-bs-toggle="modal" data-numeroconta="<?= $item['description']; ?>" data-idconta="<?= $item['id']; ?>" data-bs-target="#modal-danger" onclick="showModal()"><i class="nav-icon fas fa-trash"></i><?= nbsp(3); ?>Excluir</a>
                                         </div>
                                     </td>
                                     <td class="show576">
@@ -53,9 +56,9 @@
                                                 <i class="nav-icon fas fa-ellipsis-h"></i>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li> <?=anchor('/rubrica/edit/'.$item['id'],'<i class="nav-icon fas fa-pen"></i>'.nbsp(3).'Editar',['class'=>'dropdown-item']);?></li>
+                                                <li> <?= anchor('/rubrica/edit/' . $item['id'], '<i class="nav-icon fas fa-pen"></i>' . nbsp(3) . 'Editar', ['class' => 'dropdown-item']); ?></li>
                                                 <div class="dropdown-divider"></div>
-                                                <li><a class="dropdown-item link-modal" href="#" data-bs-toggle="modal" data-numeroconta ="<?=$item['description'];?>" data-idconta ="<?=$item['id'];?>" data-bs-target="#modal-danger" onclick="showModal()"><i class="nav-icon fas fa-trash"></i><?= nbsp(3); ?>Excluir</a></li>
+                                                <li><a class="dropdown-item link-modal" href="#" data-bs-toggle="modal" data-numeroconta="<?= $item['description']; ?>" data-idconta="<?= $item['id']; ?>" data-bs-target="#modal-danger" onclick="showModal()"><i class="nav-icon fas fa-trash"></i><?= nbsp(3); ?>Excluir</a></li>
                                             </ul>
 
                                         </div>
@@ -84,7 +87,7 @@
             <?= form_open('/rubrica/delete'); ?>
             <div class="modal-body">
 
-                <input type="hidden" name="_method" value="delete"/>
+                <input type="hidden" name="_method" value="delete" />
                 <input type="hidden" name="idConta" id="conta" value="">
                 Deseja excluir a rubrica :: <span class="badge bg-primary" id="contaNumero"></span>
 
@@ -98,4 +101,3 @@
     </div>
 </div>
 <?= $this->endSection(); ?>
-
