@@ -53,7 +53,7 @@
                             </div>
                         <?php endif; ?>
                         <br>
-                        <span class="badge badge-danger"><?= array_key_exists("type_mov", $erro) === true ? $erro['type_mov'] : ''; ?></span>
+                        <span class="invalid-feedback"><?= array_key_exists("type_mov", $erro) === true ? $erro['type_mov'] : ''; ?></span>
                     </div>
                     <div class="form-group">
                         <label>Rubrica :: </label>
@@ -70,7 +70,7 @@
                                 <?php endforeach; ?>
                             </select>
                             <?= anchor('/rubrica/add', '...', ['class' => 'btn btn btn-outline-secondary']); ?>
-                            <span class="badge badge-danger"><?= array_key_exists("id_rubric", $erro) === true ? $erro['id_rubric'] : '';
+                            <span class="invalid-feedback"><?= array_key_exists("id_rubric", $erro) === true ? $erro['id_rubric'] : '';
                                                                 ?></span>
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                             </div>
                         </div>
 
-                        <span class="badge badge-danger"><?= array_key_exists("date_mov", $erro) === true ? $erro['date_mov'] : ''; ?></span>
+                        <span class="invalid-feedback"><?= array_key_exists("date_mov", $erro) === true ? $erro['date_mov'] : ''; ?></span>
                     </div>
 
                     <div class="form-group">
@@ -91,7 +91,7 @@
                         <input type="text" name="value_mov" class="form-control moeda" id="exampleInputEmail1" placeholder="Ex.: R$ 0,00" value="<?= abs(($movement['value_mov']));
                                                                                                                                                     ?>">
 
-                        <span class="badge badge-danger"><?= array_key_exists("value_mov", $erro) === true ? $erro['value_mov'] : ''; ?></span>
+                        <span class="invalid-feedback"><?= array_key_exists("value_mov", $erro) === true ? $erro['value_mov'] : ''; ?></span>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Origem :: </label>
@@ -105,7 +105,7 @@
                                 <?php endif; ?>
                             <?php endforeach; ?>
                         </select>
-                        <span class="badge badge-danger"><?= array_key_exists("origem", $erro) === true ? $erro['origem'] : ''; ?></span>
+                        <span class="invalid-feedback"><?= array_key_exists("origem", $erro) === true ? $erro['origem'] : ''; ?></span>
                     </div>
                     <?= form_hidden('status', 'A'); ?>
                 </div>

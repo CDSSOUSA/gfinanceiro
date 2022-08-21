@@ -18,6 +18,7 @@ class Main extends BaseController
                         'links'   => [
                            'Cadastrar' => '/account/add',
                            'Listar' => '/account/list',
+                           'Saldo' => '/account/balance',
                          
                         ],
                         'icon' => '<i class="nav-icon far fa-money-bill-alt"></i>',
@@ -37,7 +38,8 @@ class Main extends BaseController
                             'Listar' => '/movement/resume/'.date('m').'/'.date("Y"),
                             'Consultar' => [
                                 'Rubrica' => '/movement/search/rubrica',
-                                'Data' => '/movement/search/rubrica',
+                                'Data' => '/movement/search/data',
+                                'Origem' => '/movement/search/origem',
                             ]
                         ],
                         'icon' => '<i class="nav-icon far fa-calendar-alt"></i>',

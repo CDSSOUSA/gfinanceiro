@@ -136,7 +136,7 @@ class Movement extends BaseController
             $this->movementModel->transStart();
             $save = $this->movementModel->save($dataPost);
             $this->movementModel->transComplete();
-            
+
             $this->account->transStart();
             $updateBalanceAccount = $this->account->updateBalancAccount($origem, $value, $operation);
             $this->account->transComplete();
@@ -205,7 +205,7 @@ class Movement extends BaseController
             'alert' => '',
             'status' => ''
         ];
-       
+
         $resume = $this->movementModel->resume($mouth, $year);
         $balancePrevius = $this->movementModel->balancePrevius($mouth, $year);
 
@@ -364,14 +364,35 @@ class Movement extends BaseController
             //dd($this->erros);
         }
         //$accounts = $this->accountModel->findAll();
+
         $data = array(
             'title_page' => 'Consultar por ' . $tipo,
             'erro' => $this->erros,
             'msgs' => $msg,
             'type' => $tipo,
-            'rubrics' => $this->rubrics->orderBy('description')->findAll(),
+
 
         );
+        $data['data'] = [];
+        $data['name'] = 'date_mov';
+
+        if ($tipo == 'rubrica') {
+
+            $data['type'] = $tipo;
+            $data['data'] = [
+                'item' => $this->rubrics->orderBy('description')->findAll(),
+                'option' => 'rubrica'
+            ];
+            $data['name'] = 'id_rubric';
+        } 
+        if($tipo == 'origem'){
+            $data['type'] = $tipo;
+            $data['data'] = [
+                'item' => $this->account->findAll(),
+                'option' => 'origem'
+            ];
+            $data['name'] = 'origem';
+        }
 
 
         return view('movement/form/search', $data);
@@ -396,21 +417,25 @@ class Movement extends BaseController
 
         $val = $this->validate(
             [
-                'id_rubric' => 'required',
+                'value' => 'required',
 
             ],
             [
-                'id_rubric' => [
+                'value' => [
                     'required' => 'Preenchimento obrigatório!'
                 ],
             ]
         );
+
+        $dataType = $this->request->getPost();
+        $campo = $this->request->getPost();
+
         if (!$val) {
             //dd($val);
             //return redirect()->back()->withInput()->with('erro', $this->validator);
-            $dataErro = ['msg' => 'Preenchimento obrigatório!', 'type' => 'rubrica', 'status' => $this->statusErro, 'alert' => 'danger'];
+            $dataErro = ['msg' => 'Preenchimento obrigatório!', 'type' => $dataType, 'status' => $this->statusErro, 'alert' => 'danger'];
             session()->set('erro', $dataErro);
-            return redirect()->to('/movement/search/rubrica');
+            return redirect()->to('/movement/search/' . $dataType['typeSearch']);
         }
 
         if ($this->request->getMethod() === 'post') {
@@ -422,8 +447,10 @@ class Movement extends BaseController
             ]);*/
 
             $dataPost = $this->request->getPost();
+
             //dd($dataPost);
-            $search = $this->movementModel->getMovementForRubric($dataPost['id_rubric']);
+            
+            $search = $this->movementModel->getMovementForType($campo['field'], $dataPost['value']);
 
             if ($search) {
 
@@ -437,7 +464,7 @@ class Movement extends BaseController
             } else {
                 $dataErro = ['msg' => 'Nenhum dado encontrado para a consulta!', 'type' => 'rubrica', 'status' => $this->statusWarning, 'alert' => 'warning'];
                 session()->set('erro', $dataErro);
-                return redirect()->to('/movement/search/rubrica');
+                return redirect()->to('/movement/search/'.$dataType['typeSearch']);
             }
 
             //return redirect()->to('movement/resume/'.$dateAttribute);

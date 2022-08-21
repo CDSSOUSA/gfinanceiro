@@ -110,6 +110,7 @@
     rightArrow: '<i class="fa fa-long-arrow-right"></i>',
     prevText: "&#x3C;Anterior",
     nextText: "Próximo&#x3E;",
+    minDate: new Date(<?=getenv('YEAR_START');?>, <?=getenv('MONTH_START');?>-1, <?=getenv('DAY_START');?>),
     maxDate: "+0d",
     selectOtherMonths: true,
     currentText: "Hoje",

@@ -29,29 +29,15 @@
                 <!-- form start -->
                 <?php echo form_open('/movement/result', ['class' => '']) ?>
                 <?= csrf_field() ?>
+                <?= form_hidden('typeSearch',$type) ?>
+                <?= form_hidden('field',$name) ?>
                 <div class="card-body col-md-6">
-                    <div class="form-group">
-                        <label>Rubrica :: </label>
-
-                        <select class="form-control" name="id_rubric">
-                            <option value="">Selecione ...</option>
-                            <?php
-                            foreach ($rubrics as $item) : ?>
-                                <option value="<?= $item['id']; ?>" <?= set_select('id_rubric', $item['id'], false) ?>><?= mb_strtoupper($item['description']); ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <?php
-                        if ($erro !== []) : ?>
-                            <span class="badge badge-<?= $erro['alert']; ?>"><?= $erro['msg']; ?></span>
-                        <?php endif; ?>
-
-                    </div>
-
+                   <?=fieldSearch( $data ,  $erro);?>
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Buscar</button>
+                <?=buttomGroup('Buscar',);?>
                     
                 </div>
                 <?php form_close();

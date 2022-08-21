@@ -46,6 +46,7 @@ $routes->group(
         $routes->post('create', 'Account::create');
         $routes->get('list', 'Account::list');
         $routes->get('edit/(:any)', 'Account::edit/$1');
+        $routes->get('balance', 'Account::balance');
         $routes->put('update', 'Account::update');
         $routes->delete('delete', 'Account::delete');
     }

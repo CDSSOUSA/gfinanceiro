@@ -32,8 +32,8 @@
                     <div class="form-group">
                         <label for="exampleInputEmail1">Descrição :: </label>
                         <input type="text" name="description" class="form-control" id="exampleInputEmail1" placeholder="Ex.: ÁGUA" value="<?= old('description') ?>" autofocus>
-
-                        <span class="badge badge-danger"><?= array_key_exists("description", $erro) === true ? $erro['description'] : ''; ?></span>
+                       
+                        <span class="invalid-feedback"><?= array_key_exists("description", $erro) === true ? $erro['description'] : ''; ?></span>
                     </div>
 
                     <?= form_hidden('status', 'A'); ?>
@@ -41,8 +41,7 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Salvar</button>
-
+                <?=buttomGroup();?>
                 </div>
                 <?php form_close(); ?>
             </div>

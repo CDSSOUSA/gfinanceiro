@@ -13,7 +13,7 @@ class Rubrica extends BaseController
     public function __construct()
     {
         $this->rubricaModel = new RubricaModel();
-        $this->rubricas = $this->rubricaModel->findAll();
+        $this->rubricas = $this->rubricaModel->orderBy('description')->findAll();
     }
 
     public function show()

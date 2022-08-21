@@ -112,9 +112,9 @@ class MovementModel extends Model
             ->get()->getRowArray();        
     }
 
-    public function getMovementForRubric(int $id)
+    public function getMovementForType(string $campo, $value)
     {
-        return $this->where('id_rubric', $id)
+        return $this->where($campo, $value)
             ->orderBy('date_mov')
             ->findAll();
     }

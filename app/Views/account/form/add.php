@@ -33,7 +33,7 @@
                         <label for="exampleInputEmail1">Número :: </label>
                         <input type="text" name="numeric_account" class="form-control number_account" id="exampleInputEmail1" placeholder="Ex.: 99999-9" value="<?= old('numeric_account') ?>" autofocus>
 
-                        <span class="badge badge-danger"><?= array_key_exists("numeric_account", $erro) === true ? $erro['numeric_account'] : ''; ?></span>
+                        <span class="invalid-feedback"><?= array_key_exists("numeric_account", $erro) === true ? $erro['numeric_account'] : ''; ?></span>
                     </div>
                     <div class="form-group">
                         <label>Agência Bancária :: </label>
@@ -44,14 +44,14 @@
                                 <option value="<?= mb_strtoupper($nameBank); ?>" <?= set_select('bank', mb_strtoupper($nameBank), false) ?>><?= mb_strtoupper($nameBank); ?></option>
                             <?php endforeach; ?>
                         </select>
-                        <span class="badge badge-danger"><?= array_key_exists("bank", $erro) === true ? $erro['bank'] : ''; ?></span>
+                        <span class="invalid-feedback"><?= array_key_exists("bank", $erro) === true ? $erro['bank'] : ''; ?></span>
                     </div>
                     <?= form_hidden('status', 'A'); ?>
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Salvar</button>
+                <?=buttomGroup();?>
 
                 </div>
                 <?php form_close(); ?>

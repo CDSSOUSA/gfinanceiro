@@ -125,7 +125,7 @@ function convertToMonthExtens(int $mes): string
 
 function formatYearTwoDigits(int $year)
 {
-    return substr($year,-2);
+    return substr($year, -2);
 }
 
 /**
@@ -146,10 +146,9 @@ function validBissexto(int $year): bool
     return $bissexto;
 }
 
-function convertToDate (string $data): string
+function convertToDate(string $data): string
 {
-    if (!empty($data))
-    {
+    if (!empty($data)) {
         $data = explode("/", $data);
         return $dataAtendimento = $data[2] . "-" . $data[1] . "-" . $data[0];
     }
@@ -160,25 +159,25 @@ function convertDateToAttribute(string $date)
 {
     $a = explode('-', $date);
 
-    return $a[1].'/'.$a[0];
+    return $a[1] . '/' . $a[0];
 }
 
 function convertCoinNegative($value)
 {
-    if(substr($value,1) == '-'){
+    if (substr($value, 1) == '-') {
         dd('');
-        $d = explode('-',$value);
+        $d = explode('-', $value);
         return $d[1];
     }
     //dd(substr($value,1));
     return $value;
 }
 
-function defineDayEnd (string $month, string $year): string
+function defineDayEnd(string $month, string $year): string
 {
     $isBissexto = false;
     $mouthThirty = ['04', '06', '09', '11'];
-    
+
     $dayOut = '30';
 
     if ($month == '02') {
@@ -190,4 +189,81 @@ function defineDayEnd (string $month, string $year): string
         $dayOut = '31';
     }
     return $dayOut;
+}
+
+function buttomGroup(string $btnSubmit = 'Salvar', string $btnClear = 'Limpar')
+{
+    $icon = [
+        'btnSubmit' => $btnSubmit == 'Salvar' ? 'fa-save' : 'fa-search',
+        'btnClear' => 'fa-ban'
+    ];
+    return '<button type="submit" class="btn btn-primary"><i class="icon fas ' . $icon['btnSubmit'] . '"></i> ' . $btnSubmit . '</button>
+                    <button type="reset" class="btn btn-secondary"><i class="icon fas ' . $icon['btnClear'] . '"></i> ' . $btnClear . '</button>';
+}
+
+function fieldSearch(array $data, array $erro)
+{
+
+    $a = '<div class="form-group">
+    <label>Data :: </label>';
+
+    $a .= '<div class="input-group">
+    <input type="text" id="datepicker" name="value" class="form-control date" placeholder="Selecione ...">
+    <div class="input-group-append">
+    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+    </div>
+    </div>';
+
+    if ($erro !== []) :
+        $a .= '<span class="invalid-feedback">' . $erro['msg'] . '</span>';
+    endif;
+    $a .= '</div>';
+
+    if ($data['option'] == 'rubrica') {
+        $a = defineInputRubrica($data['item'], $erro);
+    }
+    if ($data['option'] == 'origem') {
+        $a = defineInputOrigem($data['item'], $erro);
+    }
+
+    return $a;
+}
+
+function defineInputRubrica(array $data, array $erro)
+{
+    $a = '<div class="form-group">
+    <label>Rubrica :: </label>
+
+    <select class="form-control" name="value">
+        <option value="">Selecione ...</option>';
+
+    foreach ($data as $item) :
+        $a .= '<option value="' . $item['id'] . '"' . set_select('id_rubric', $item['id'], false) . '>' . mb_strtoupper($item['description']) . '</option>';
+    endforeach;
+    $a .= '</select>';
+
+    if ($erro !== []) :
+        $a .= '<span class="invalid-feedback">' . $erro['msg'] . '</span>';
+    endif;
+    $a .= '</div>';
+    return $a;
+}
+function defineInputOrigem(array $data, array $erro)
+{
+    $a = '<div class="form-group">
+    <label>Origem :: </label>
+
+    <select class="form-control" name="value">
+        <option value="">Selecione ...</option>';
+
+    foreach ($data as $item) :
+        $a .= '<option value="' . $item['id'] . '"' . set_select('origem', $item['id'], false) . '>' . mb_strtoupper($item['bank']) . '</option>';
+    endforeach;
+    $a .= '</select>';
+
+    if ($erro !== []) :
+        $a .= '<span class="invalid-feedback">' . $erro['msg'] . '</span>';
+    endif;
+    $a .= '</div>';
+    return $a;
 }

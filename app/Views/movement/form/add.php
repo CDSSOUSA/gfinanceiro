@@ -43,7 +43,7 @@
                             <label for="despesa">DESPESA</label>
                         </div>
                         <br>
-                        <span class="badge badge-danger"><?= array_key_exists("type_mov", $erro) === true ? $erro['type_mov'] : ''; ?></span>
+                        <span class="invalid-feedback"><?= array_key_exists("type_mov", $erro) === true ? $erro['type_mov'] : ''; ?></span>
                     </div>
                     <div class="form-group">
                         <label>Rubrica :: </label>
@@ -58,26 +58,26 @@
                             <?= anchor('/rubrica/add', '...', ['class' => 'btn btn btn-outline-secondary']); ?>
                         </div>
 
-                        <span class="badge badge-danger"><?= array_key_exists("id_rubric", $erro) === true ? $erro['id_rubric'] : '';
+                        <span class="invalid-feedback"><?= array_key_exists("id_rubric", $erro) === true ? $erro['id_rubric'] : '';
                                                             ?></span>
                     </div>
                     <div class="form-group">
                         <label>Data :: </label>
                         <div class="input-group">
-                            <input type="text" id="datepicker" name="date_mov" class="form-control date" value="<?= old('date_mov'); ?>">
+                            <input type="text" id="datepicker" name="date_mov" class="form-control date" value="<?= set_value('date_mov',date('d/m/Y'),true); ?>">
                             <div class="input-group-append">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
 
-                        <span class="badge badge-danger"><?= array_key_exists("date_mov", $erro) === true ? $erro['date_mov'] : ''; ?></span>
+                        <span class="invalid-feedback"><?= array_key_exists("date_mov", $erro) === true ? $erro['date_mov'] : ''; ?></span>
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Valor :: </label>
-                        <input type="text" name="value_mov" class="form-control moeda" id="exampleInputEmail1" placeholder="Ex.: R$ 0,00" value="<?= old('value_mov') ?>">
+                        <label for="exampleInputEmail1">Valor (R$) :: </label>
+                        <input type="text" name="value_mov" class="form-control moeda" id="exampleInputEmail1" placeholder="Ex.: 0,00" value="<?= old('value_mov') ?>">
 
-                        <span class="badge badge-danger"><?= array_key_exists("value_mov", $erro) === true ? $erro['value_mov'] : ''; ?></span>
+                        <span class="invalid-feedback"><?= array_key_exists("value_mov", $erro) === true ? $erro['value_mov'] : ''; ?></span>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Origem :: </label>
@@ -88,13 +88,13 @@
                                 <option value="<?= ($nameBank['id']); ?>" <?= set_select('origem', ($nameBank['id']), false) ?>><?= ($nameBank['bank']); ?></option>
                             <?php endforeach; ?>
                         </select>
-                        <span class="badge badge-danger"><?= array_key_exists("origem", $erro) === true ? $erro['origem'] : ''; ?></span>
+                        <span class="invalid-feedback"><?= array_key_exists("origem", $erro) === true ? $erro['origem'] : ''; ?></span>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Observação :: </label>
                         <input type="text" name="observation" class="form-control" id="exampleInputEmail1" placeholder="Ref.: " value="<?= old('observation') ?>">
 
-                        <span class="badge badge-danger"><?= array_key_exists("observation", $erro) === true ? $erro['observation'] : ''; ?></span>
+                        <span class="invalid-feedback"><?= array_key_exists("observation", $erro) === true ? $erro['observation'] : ''; ?></span>
                     </div>
 
                     <?= form_hidden('status', 'A'); ?>
@@ -102,8 +102,7 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Salvar</button>
-
+                    <?=buttomGroup();?>
                 </div>
                 <?php form_close(); ?>
             </div>

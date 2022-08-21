@@ -251,4 +251,22 @@ class Account extends BaseController
        
 
     }
+
+    public function balance()
+    {
+        $data = array(
+            'title_page' => 'Listar Saldo conta bancária',
+            //'blogAtual' => $this->blog->find($id),
+            //'blogs' => $this->blog->blogRecents($id),
+            //'horarioSegunda' => $this->horarioSegunda->getHorarioDiaSemana(2,1),
+            //'msgs' => $msg,
+            'bank' => ['cef', 'santander', 'sicred','carteira'],
+            'erro' => $this->erros,
+            'accounts' => $this->accounts,
+           // 'msgs' => $msg,
+            //'erro' => $this->erros
+        );
+
+        return view('account/form/balance', $data);
+    }
 }
