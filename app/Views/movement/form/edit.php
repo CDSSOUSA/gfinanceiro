@@ -94,18 +94,18 @@
                         <span class="invalid-feedback"><?= array_key_exists("value_mov", $erro) === true ? $erro['value_mov'] : ''; ?></span>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Origem :: </label>
-                        <select class="form-control" name="origem">
-                            <option value="<?= ($movement['origem']); ?>" <?= set_select('origem', ($movement['origem']), false) ?>><?= $account->find($movement['origem'])['bank']; ?></option>
+                        <label for="exampleInputEmail1">origin :: </label>
+                        <select class="form-control" name="origin">
+                            <option value="<?= ($movement['origin']); ?>" <?= set_select('origin', ($movement['origin']), false) ?>><?= $account->find($movement['origin'])['bank']; ?></option>
                             <?php
 
                             foreach ($bank as $nameBank) :
-                                if ((int)$movement['origem'] !== (int)$nameBank['id']) : ?>
-                                    <option value="<?= ($nameBank['id']); ?>" <?= set_select('origem', ($nameBank['id']), false) ?>><?= mb_strtoupper($nameBank['bank']); ?></option>
+                                if ((int)$movement['origin'] !== (int)$nameBank['id']) : ?>
+                                    <option value="<?= ($nameBank['id']); ?>" <?= set_select('origin', ($nameBank['id']), false) ?>><?= mb_strtoupper($nameBank['bank']); ?></option>
                                 <?php endif; ?>
                             <?php endforeach; ?>
                         </select>
-                        <span class="invalid-feedback"><?= array_key_exists("origem", $erro) === true ? $erro['origem'] : ''; ?></span>
+                        <span class="invalid-feedback"><?= array_key_exists("origin", $erro) === true ? $erro['origin'] : ''; ?></span>
                     </div>
                     <?= form_hidden('status', 'A'); ?>
                 </div>

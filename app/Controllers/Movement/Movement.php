@@ -79,7 +79,7 @@ class Movement extends BaseController
                 'date_mov'  => 'required',
                 'id_rubric' => 'required',
                 'value_mov' => 'required',
-                'origem'    => 'required',
+                'origin'    => 'required',
                 'observation'    => 'permit_empty|min_length[5]'
             ],
             [
@@ -95,7 +95,7 @@ class Movement extends BaseController
                 'value_mov' => [
                     'required' => 'Preenchimento obrigatório!'
                 ],
-                'origem'    => [
+                'origin'    => [
                     'required' => 'Preenchimento obrigatório!'
                 ],
                 'observation'    => [
@@ -124,7 +124,7 @@ class Movement extends BaseController
             $dataPost['value_mov'] = maskCoin($dataPost['value_mov']);
 
             $value = $dataPost['value_mov'];
-            $origem = $dataPost['origem'];
+            $origin = $dataPost['origin'];
             $operation = $dataPost['type_mov'];
 
             if ($dataPost['type_mov'] == 'D') {
@@ -138,7 +138,7 @@ class Movement extends BaseController
             $this->movementModel->transComplete();
 
             $this->account->transStart();
-            $updateBalanceAccount = $this->account->updateBalancAccount($origem, $value, $operation);
+            $updateBalanceAccount = $this->account->updateBalancAccount($origin, $value, $operation);
             $this->account->transComplete();
 
 
@@ -373,7 +373,11 @@ class Movement extends BaseController
 
 
         );
-        $data['data'] = [];
+        $data['data'] = [
+            'item'=>[],
+            'option'=>'Date'
+        ];
+
         $data['name'] = 'date_mov';
 
         if ($tipo == 'rubrica') {
@@ -381,17 +385,18 @@ class Movement extends BaseController
             $data['type'] = $tipo;
             $data['data'] = [
                 'item' => $this->rubrics->orderBy('description')->findAll(),
-                'option' => 'rubrica'
+                'option' => 'Rubric'
             ];
             $data['name'] = 'id_rubric';
         } 
+
         if($tipo == 'origem'){
             $data['type'] = $tipo;
             $data['data'] = [
                 'item' => $this->account->findAll(),
-                'option' => 'origem'
+                'option' => 'Origin'
             ];
-            $data['name'] = 'origem';
+            $data['name'] = 'origin';
         }
 
 
@@ -450,7 +455,9 @@ class Movement extends BaseController
 
             //dd($dataPost);
             
-            $search = $this->movementModel->getMovementForType($campo['field'], $dataPost['value']);
+            $search = $this->movementModel->getMovementForType(
+                $campo['field'], 
+                $campo['field'] == 'date_mov' ? convertToDate($dataPost['value']) : $dataPost['value']);
 
             if ($search) {
 
@@ -460,6 +467,7 @@ class Movement extends BaseController
                     'status' => $this->statusSuccess
                 ];
                 $data['result'] = $search;
+                $data['type'] =$dataType['typeSearch'];
                 session()->set('success', $data);
             } else {
                 $dataErro = ['msg' => 'Nenhum dado encontrado para a consulta!', 'type' => 'rubrica', 'status' => $this->statusWarning, 'alert' => 'warning'];

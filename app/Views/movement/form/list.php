@@ -129,7 +129,7 @@ $day = $uri->getSegment(7);
                                     <tr>
                                         <td><?= date('d/m/Y', strtotime($item['date_mov'])); ?></td>
                                         <td class="text-left"><?= $rubrica->getById($item['id_rubric'])['description']; ?></td>
-                                        <td class="text-left"><?= $account->find($item['origem'])['bank']; ?></td>
+                                        <td class="text-left"><?= $account->find($item['origin'])['bank']; ?></td>
                                         <td class="text-right text-green"><?= $item['type_mov'] === 'R' ? convertCoin($item['value_mov']) : ''; ?></td>
                                         <td class="text-right text-danger"><?= $item['type_mov'] === 'D' ? convertCoin($item['value_mov']) : ''; ?></td>
                                         <td class="text-center text-danger"><?= anchor('/movement/edit/' . $item['id'], '<i class="nav-icon fas fa-pen"></i>' . nbsp(3) . 'Editar', ['class' => 'btn btn-dark']); ?></td>

@@ -33,10 +33,10 @@ class AccountModel extends Model
     protected $cleanValidationRules = true;
 
 
-    public function updateBalancAccount(int $origem, float $value, string $operation): bool
+    public function updateBalancAccount(int $origin, float $value, string $operation): bool
     {
 
-        $balance = $this->find($origem);
+        $balance = $this->find($origin);
         $balance['balance'];
 
         $newValue = 0;
@@ -46,7 +46,7 @@ class AccountModel extends Model
             $newValue = $balance['balance'] + $value;
         }
         return $this->set('balance', $newValue)
-            ->where('id', $origem)
+            ->where('id', $origin)
             ->update();
     }
 }

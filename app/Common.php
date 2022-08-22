@@ -204,66 +204,60 @@ function buttomGroup(string $btnSubmit = 'Salvar', string $btnClear = 'Limpar')
 function fieldSearch(array $data, array $erro)
 {
 
-    $a = '<div class="form-group">
-    <label>Data :: </label>';
+    $function = 'defineInput' . $data['option'];
 
-    $a .= '<div class="input-group">
-    <input type="text" id="datepicker" name="value" class="form-control date" placeholder="Selecione ...">
-    <div class="input-group-append">
-    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-    </div>
-    </div>';
-
-    if ($erro !== []) :
-        $a .= '<span class="invalid-feedback">' . $erro['msg'] . '</span>';
-    endif;
-    $a .= '</div>';
-
-    if ($data['option'] == 'rubrica') {
-        $a = defineInputRubrica($data['item'], $erro);
-    }
-    if ($data['option'] == 'origem') {
-        $a = defineInputOrigem($data['item'], $erro);
-    }
-
-    return $a;
+    return $function($data['item'], $erro);
 }
 
-function defineInputRubrica(array $data, array $erro)
+function defineFieldErro(array $erro)
+{
+    $error = '';
+    if ($erro !== []) {
+        $error = '<span class="invalid-feedback">' . $erro['msg'] . '</span>';
+    }
+    return $error;
+}
+
+function defineInputDate(array $data, array $erro)
 {
     $a = '<div class="form-group">
-    <label>Rubrica :: </label>
-
-    <select class="form-control" name="value">
-        <option value="">Selecione ...</option>';
-
-    foreach ($data as $item) :
-        $a .= '<option value="' . $item['id'] . '"' . set_select('id_rubric', $item['id'], false) . '>' . mb_strtoupper($item['description']) . '</option>';
-    endforeach;
-    $a .= '</select>';
-
-    if ($erro !== []) :
-        $a .= '<span class="invalid-feedback">' . $erro['msg'] . '</span>';
-    endif;
+            <label>Data :: </label>
+                <div class="input-group">
+                    <input type="text" id="datepicker" name="value" class="form-control date" placeholder="Selecione ...">
+                    <div class="input-group-append">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>';
+    $a .= defineFieldErro($erro);
     $a .= '</div>';
     return $a;
 }
-function defineInputOrigem(array $data, array $erro)
+
+function defineInputRubric(array $data, array $erro)
 {
     $a = '<div class="form-group">
-    <label>Origem :: </label>
-
-    <select class="form-control" name="value">
-        <option value="">Selecione ...</option>';
-
-    foreach ($data as $item) :
-        $a .= '<option value="' . $item['id'] . '"' . set_select('origem', $item['id'], false) . '>' . mb_strtoupper($item['bank']) . '</option>';
-    endforeach;
-    $a .= '</select>';
-
-    if ($erro !== []) :
-        $a .= '<span class="invalid-feedback">' . $erro['msg'] . '</span>';
-    endif;
+            <label>Rubrica :: </label>
+                <select class="form-control" name="value">
+                    <option value="">Selecione ...</option>';
+                foreach ($data as $item) :
+                    $a .= '<option value="' . $item['id'] . '"' . set_select('id_rubric', $item['id'], false) . '>' . mb_strtoupper($item['description']) . '</option>';
+                endforeach;
+                $a .= '</select>';
+    $a .= defineFieldErro($erro);
+    $a .= '</div>';
+    return $a;
+}
+function defineInputOrigin(array $data, array $erro)
+{
+    $a = '<div class="form-group">
+            <label>Origem :: </label>
+            <select class="form-control" name="value">
+                <option value="">Selecione ...</option>';
+            foreach ($data as $item) :
+                $a .= '<option value="' . $item['id'] . '"' . set_select('origin', $item['id'], false) . '>' . mb_strtoupper($item['bank']) . '</option>';
+            endforeach;
+            $a .= '</select>';
+    $a .= defineFieldErro($erro);
     $a .= '</div>';
     return $a;
 }

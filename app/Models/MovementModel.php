@@ -14,7 +14,7 @@ class MovementModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['type_mov', 'date_mov', 'id_rubric', 'value_mov', 'status', 'origem','observation'];
+    protected $allowedFields    = ['type_mov', 'date_mov', 'id_rubric', 'value_mov', 'status', 'origin','observation'];
 
 
     // Validation
@@ -23,7 +23,7 @@ class MovementModel extends Model
         'date_mov'  => 'required',
         'id_rubric' => 'required',
         'value_mov' => 'required',
-        'origem'    => 'required'
+        'origin'    => 'required'
     ];
     protected $validationMessages   = [
         'type_mov'  => [
@@ -38,7 +38,7 @@ class MovementModel extends Model
         'value_mov' => [
             'required' => 'Preenchimento obrigatório!'
         ],
-        'origem'    => [
+        'origin'    => [
             'required' => 'Preenchimento obrigatório!'
         ]
 

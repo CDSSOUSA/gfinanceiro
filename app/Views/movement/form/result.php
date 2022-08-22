@@ -25,7 +25,7 @@ $rubrica = new Rubrica();
             <?php endif; ?>
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">:: Todas as movimentações <?php echo nbsp(4);
+                    <h3 class="card-title">:: Todas as movimentações por <?=$type;?> <?php echo nbsp(4);
                                                                         echo anchor('/movement/add', '<i class="nav-icon fas fa-file"></i>' . nbsp(3) . 'Nova', ['class' => 'btn btn-dark text-right']); ?></h3>
                 </div>
                 <div class="card-body p-2 text-center table-responsive">
@@ -81,7 +81,7 @@ $rubrica = new Rubrica();
                                             <tr>
                                                 <td><?= date('d/m/Y', strtotime($item['date_mov'])); ?></td>
                                                 <td class="text-left"><?= $rubrica->getById($item['id_rubric'])['description']; ?></td>
-                                                <td class="text-left"><?= $account->find($item['origem'])['bank']; ?></td>
+                                                <td class="text-left"><?= $account->find($item['origin'])['bank']; ?></td>
                                                 <td class="text-right text-green"><?= $item['type_mov'] === 'R' ? convertCoin($item['value_mov']) : '--'; ?></td>
                                                 <td class="text-right text-danger"><?= $item['type_mov'] === 'D' ? convertCoin($item['value_mov']) : '--'; ?></td>
                                                 <td class="text-center text-danger"><?= anchor('/movement/edit/' . $item['id'], '<i class="nav-icon fas fa-pen"></i>' . nbsp(3) . 'Editar', ['class' => 'btn btn-dark']); ?></td>
@@ -99,6 +99,14 @@ $rubrica = new Rubrica();
                                     <td class="text-right text-danger"><?= convertCoin($totDespesa); ?></td>
 
                                 </tr>
+                                <tr class="text-bold">
+                                <th colspan="4">Saldo :: </th>
+                                <?php
+                                $balance = ($totReceita + $totDespesa);
+                                $colorText = $balance >= 0 ? 'text-green' : 'text-danger'; ?>
+                                <td class="text-right <?= $colorText; ?>"><?= convertCoin($balance) ?></td>
+
+                            </tr>
 
                                 <?php
                                 session()->remove('date'); ?>

@@ -80,15 +80,15 @@
                         <span class="invalid-feedback"><?= array_key_exists("value_mov", $erro) === true ? $erro['value_mov'] : ''; ?></span>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Origem :: </label>
-                        <select class="form-control" name="origem">
+                        <label for="exampleInputEmail1">origin :: </label>
+                        <select class="form-control" name="origin">
                             <option value="">Selecione ...</option>
                             <?php
                             foreach ($bank as $nameBank) : ?>
-                                <option value="<?= ($nameBank['id']); ?>" <?= set_select('origem', ($nameBank['id']), false) ?>><?= ($nameBank['bank']); ?></option>
+                                <option value="<?= ($nameBank['id']); ?>" <?= set_select('origin', ($nameBank['id']), false) ?>><?= ($nameBank['bank']); ?></option>
                             <?php endforeach; ?>
                         </select>
-                        <span class="invalid-feedback"><?= array_key_exists("origem", $erro) === true ? $erro['origem'] : ''; ?></span>
+                        <span class="invalid-feedback"><?= array_key_exists("origin", $erro) === true ? $erro['origin'] : ''; ?></span>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Observação :: </label>

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\UsersModel;
 
 class Main extends BaseController
 {
@@ -49,9 +50,42 @@ class Main extends BaseController
 
         ];
     }
+    // public function index()
+    // {
+    //     session()->set('menu', $this->menu);
+   
+    //     $msg = [
+    //         'message' => '',
+    //         'alert' => ''
+    //     ];
+    //     $data = array(
+    //         'title' => 'Principal',
+    //         //'blogAtual' => $this->blog->find($id),
+    //         //'blogs' => $this->blog->blogRecents($id),
+    //         //'horarioSegunda' => $this->horarioSegunda->getHorarioDiaSemana(2,1),
+    //         'msgs' => $msg,
+    //         //'menu' => $this->menu
+
+    //         //'erro' => $this->erros
+    //     );
+
+    //     return view('main/main', $data);
+    // }
+
     public function index()
     {
-        session()->set('menu', $this->menu);
+        return view('main/login');
+    }
+
+    public function login()
+    {
+        $user = new UsersModel();
+        $status = $user->verify_login($this->request->getPost('login'), $this->request->getPost('passwrd'));
+
+        if(!$status){
+            echo 'nook';
+        } else {
+            session()->set('menu', $this->menu);
    
         $msg = [
             'message' => '',
@@ -69,5 +103,7 @@ class Main extends BaseController
         );
 
         return view('main/main', $data);
+        }
     }
+
 }
