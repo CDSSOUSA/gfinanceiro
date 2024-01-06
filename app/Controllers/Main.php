@@ -3,12 +3,13 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\UsersModel;
+use App\Models\UserModel;
 
 class Main extends BaseController
 {
     public $menu = [];
-
+    private $erros = [];
+    private $errosLogin = [];
     public function __construct()
     {
         $this->menu = [
@@ -74,23 +75,23 @@ class Main extends BaseController
 
     public function index()
     {
-        return view('main/login');
-    }
-
-    public function login()
-    {
-        $user = new UsersModel();
-        $status = $user->verify_login($this->request->getPost('login'), $this->request->getPost('passwrd'));
-
-        if(!$status){
-            echo 'nook';
-        } else {
-            session()->set('menu', $this->menu);
-   
+        //session()->remove('erro');
+        //session()->remove('erroLogin');
         $msg = [
             'message' => '',
-            'alert' => ''
+            'alert' => '',
+            'status' => ''
         ];
+        if (session()->has('erro')) {
+            $this->erros = session('erro');
+            $msg['status'] = $this->statusErro;
+            $msg['message'] = 'Erro(s) no preenchimento do formulário!';
+            $msg['alert'] = 'danger';   
+            //dd($this->erros);           
+        }
+        if(session()->has('erroLogin')){          
+            $this->errosLogin = session('erroLogin');           
+        }
         $data = array(
             'title' => 'Principal',
             //'blogAtual' => $this->blog->find($id),
@@ -99,11 +100,96 @@ class Main extends BaseController
             'msgs' => $msg,
             //'menu' => $this->menu
 
-            //'erro' => $this->erros
+            'erro' => $this->erros,
+            'erroLogin' => $this->errosLogin
         );
+        return view('main/login', $data);
+    }
+
+    public function login()
+    {
+
+        $msg = [
+            'message' => '',
+            'alert' => '',
+            'status' => ''
+        ];
+       
+
+        $data = array(
+            'title' => 'Principal',
+            //'blogAtual' => $this->blog->find($id),
+            //'blogs' => $this->blog->blogRecents($id),
+            //'horarioSegunda' => $this->horarioSegunda->getHorarioDiaSemana(2,1),
+            'msgs' => $msg,
+            //'menu' => $this->menu
+
+            'erro' => $this->erros,
+        );
+
+        $user = new UserModel();
+
+        $val = $this->validate(
+            [
+                'login' => 'required',
+                'passwrd' => 'required',
+
+            ],
+            [
+                'login' => [
+                    'required' => 'Preenchimento obrigatório!'
+                ],
+                'passwrd' => [
+                    'required' => 'Preenchimento obrigatório!'
+                ],
+            ]
+        );
+
+        if (!$val) {
+            //dd($val);
+            //return redirect()->back()->withInput()->with('erro', $this->validator);
+            //$dataErro = ['msg' => 'Login e Senha não conferem!', 'status' => $this->statusErro, 'alert' => 'danger'];
+           session()->set('erro', $this->validator);
+           return redirect()->to('/');
+        }
+        
+
+        $rs = $user->verify_login($this->request->getPost('login'), $this->request->getPost('passwrd'));
+        
+        session()->set('menu', $this->menu);
+        if(!$rs['status']){
+            $dataErro = ['msg' => 'Login e Senha não conferem!', 'status' => $this->statusErro, 'alert' => 'danger'];
+         
+            session()->set('erroLogin', $dataErro);
+            return redirect()->to('/');
+        } else {  
+
+        session()->set('data_login', $rs['login'] );
 
         return view('main/main', $data);
         }
+    }
+    public function logout()
+    {
+        session()->destroy();
+        $msg = [
+            'message' => '',
+            'alert' => '',
+            'status' => ''
+        ];
+
+        $data = array(
+            'title' => 'Principal',
+            //'blogAtual' => $this->blog->find($id),
+            //'blogs' => $this->blog->blogRecents($id),
+            //'horarioSegunda' => $this->horarioSegunda->getHorarioDiaSemana(2,1),
+            'msgs' => $msg,
+            //'menu' => $this->menu
+
+            'erro' => $this->erros,
+            'erroLogin' => $this->errosLogin
+        );
+        return view('main/login',$data);   
     }
 
 }

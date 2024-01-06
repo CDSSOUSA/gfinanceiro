@@ -6,7 +6,7 @@ $uri = new URI(current_url(true));
 
 $part = $uri->getSegment(3);
 ?>
-<nav class="mt-2">
+<nav class="mt-2 ">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
         <?php

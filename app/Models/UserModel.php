@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UsersModel extends Model
+class UserModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'tb_users';
@@ -48,13 +48,31 @@ class UsersModel extends Model
         ];
 
         $db = db_connect();
-        $results = $db->query("SELECT id, passwrd FROM tb_users WHERE {$this->aes_encrypt(':login:')} = login", $params)->getResultArray();
+        $results = $db->query("SELECT id, passwrd, ".$this->aes_decrypt('login')." login FROM tb_users WHERE {$this->aes_encrypt(':login:')} = login", $params)->getResultArray();
        //dd($results);
-        return count($results) == 0?  false: password_verify($password, $results[0]['passwrd']);
+        
+       if(count($results) === [] || !password_verify($password, $results[0]['passwrd'])){
+           return [
+               'status' => false                  
+            ];
+        }
+        return $a = [
+            'status' => true,
+            'id' => $results[0]['id'],   
+            'login' => ($results[0]['login'])
+        ];
+       
+        // return count($results) == 0 ?  false: password_verify($password, $results[0]['passwrd']);
     }
 
     private function aes_encrypt($fieldValue)
     {
         return "AES_ENCRYPT($fieldValue, UNHEX(SHA2('".AES_KEY."',512)))";
+    }
+
+    private function aes_decrypt($fieldValue)
+    {
+        
+        return "AES_DECRYPT($fieldValue, UNHEX(SHA2('".AES_KEY."',512)))";
     }
 }

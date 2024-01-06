@@ -38,11 +38,11 @@ $day = $uri->getSegment(7);
                     <div class="font-size-10">
                         <?php
                         $j = 1;
-                        if ($year === getenv('YEAR_START')) {
-                            $j = 6;
-                        } else {
-                            echo anchor('movement/resume/12/' . ($year - 1), '<i class="fa fa-chevron-left"></i>', ['class' => 'btn btn-dark page-item']);
-                        }
+                        // if ($year === getenv('YEAR_START')) {
+                        //     $j = 6;
+                        // } else {
+                        //     echo anchor('movement/resume/12/' . ($year - 1), '<i class="fa fa-chevron-left"></i>', ['class' => 'btn btn-dark page-item']);
+                        // }
                         $month = 0;
                         for ($i = $j; ($i <= 12); $i++) :
                             $buttonStyle = 'btn btn-dark';
@@ -78,10 +78,10 @@ $day = $uri->getSegment(7);
                         <?php
                         $dayOut = defineDayEnd($month, $year);
 
-                        $m = 1;
-                        if ($year == getenv('YEAR_START') && $month == getenv('MONTH_START')) {
-                            $m = 30;
-                        }
+                        $m = getenv('DAY_START');
+                        // if ($year == getenv('YEAR_START') && $month == getenv('MONTH_START')) {
+                        //     $m = 30;
+                        // }
 
                         for ($days = $m; $days <= $dayOut; $days++) {
                             $buttonStyle = 'btn btn-dark';

@@ -36,8 +36,25 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Main::index');
+$routes->get('/logout', 'Main::logout');
 $routes->post('/login', 'Main::login');
+$routes->get('/login', 'Main::index');
 
+$routes->group(
+    '/user',
+    ['namespace' => 'App\Controllers\User'],
+    function ($routes) {
+        $routes->get('add', 'User::add');
+        $routes->get('forgot', 'User::forgot');
+        $routes->get('recover', 'User::recover');
+        $routes->post('create', 'User::create');
+        $routes->get('list', 'User::list');
+        $routes->get('edit/(:any)', 'User::edit/$1');
+        $routes->get('balance', 'User::balance');
+        $routes->put('update', 'User::update');
+        $routes->delete('delete', 'User::delete');
+    }
+);
 /*ROUTES  ACCOUNT*/
 $routes->group(
     '/account',

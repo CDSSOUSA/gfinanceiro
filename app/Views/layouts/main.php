@@ -1,4 +1,5 @@
-<body class="hold-transition sidebar-mini layout-fixed dark-mode">
+<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse dark-mode">
+    
     <div class="wrapper">
 
         <!-- <div class="preloader flex-column justify-content-center align-items-center">
@@ -7,6 +8,7 @@
         <?= view('layouts/menu-top'); ?>
 
         <aside class="main-sidebar sidebar-dark-indigo elevation-4">
+            
 
             <a href="index3.html" class="brand-link">
                 <img src="<?= base_url(); ?>/assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -19,7 +21,7 @@
                         <img src="<?= base_url(); ?>/assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">CLEBER SOUSA</a>
+                        <a href="#" class="d-block"><?=session('data_login');?></a>
                     </div>
                 </div>
                 <?= view('layouts/menu-side'); ?>
